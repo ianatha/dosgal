@@ -41,8 +41,7 @@
         main(["-c", "FCLASS.EXE"]).then(function (ci) {
           window.ci = ci;
           document.title = "Galileo";
-
-          
+          DosController.Qwerty(ci.getParentDiv(), ci.getKeyEventConsumer());
         });
       });
     });
