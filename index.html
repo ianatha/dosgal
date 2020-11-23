@@ -31,20 +31,29 @@
 <body>
 	<h1>🧲✈️ v2</h1>
   <canvas id="jsdos"></canvas>
+  <button onclick="ci.sendKeyPress(13)">Enter</button>
   <button style="position: absolute; right: 1em; top: 1em;" onclick="ci.fullscreen()">Fullscreen</button>
+
   <script>
-    var dos = Dos(document.getElementById("jsdos"), { 
+    Dos(document.getElementById("jsdos"), { 
       wdosboxUrl: "https://js-dos.com/6.22/current/wdosbox.js",
       cycles: 1000,
       autolock: true,
-    })
-    
-    dos.ready(function (fs, main) {
+    }).ready(function (fs, main) {
       fs.extract("galileo.zip", "/galileo").then(function () {
-        main(["-c", "cd galileo", "-c", "FCLASS.EXE"]).then(function (ci) {
+        main(["-c", "cd galileo"]).then(function (ci) {
           window.ci = ci;
           document.title = "Galileo";
           DosController.Qwerty(ci.getParentDiv(), ci.getKeyEventConsumer());
+          window.ci.simulateKeyPress("F".charCodeAt(0));
+          window.ci.simulateKeyPress("C".charCodeAt(0));
+          window.ci.simulateKeyPress("L".charCodeAt(0));
+          window.ci.simulateKeyPress("A".charCodeAt(0));
+          window.ci.simulateKeyPress("S".charCodeAt(0));
+          window.setTimeout(function() {
+            window.ci.simulateKeyPress(83);
+            window.ci.simulateKeyPress(13);
+          }, 100);
         });
       });
     });
