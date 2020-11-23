@@ -31,13 +31,15 @@
   <canvas id="jsdos"></canvas>
   <button style="position: absolute; right: 1em; top: 1em;" onclick="ci.fullscreen()">Fullscreen</button>
   <script>
-    Dos(document.getElementById("jsdos"), { 
+    var dos = Dos(document.getElementById("jsdos"), { 
       wdosboxUrl: "https://js-dos.com/6.22/current/wdosbox.js",
       cycles: 1000,
       autolock: true,
-    }).ready(function (fs, main) {
-      fs.extract("galileo.zip").then(function () {
-        main(["-c", "FCLASS.EXE"]).then(function (ci) {
+    })
+    
+    dos.ready(function (fs, main) {
+      fs.extract("galileo.zip", "/galileo").then(function () {
+        main(["-c", "cd galileo", "-c", "FCLASS.EXE"]).then(function (ci) {
           window.ci = ci;
           document.title = "Galileo";
           DosController.Qwerty(ci.getParentDiv(), ci.getKeyEventConsumer());
